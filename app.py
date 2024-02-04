@@ -2,10 +2,13 @@ import os
 
 from flask import Flask
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
+
 
 from db import db
 import models  # calls __init__
 
+from resources.user import blp as UserBlueprint
 from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
 from resources.tag import blp as TagBlueprint
@@ -28,10 +31,15 @@ def create_app(db_url=None):
     db.init_app(app)
     api = Api(app)
 
+    # JWT Authentication
+    app.config["JWT_SECRET_KEY"] = "user1"
+    jwt = JWTManager(app)
+
     # Create DB tables
     with app.app_context():
         db.create_all()
 
+    api.register_blueprint(UserBlueprint)
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
     api.register_blueprint(TagBlueprint)

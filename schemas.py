@@ -1,6 +1,9 @@
 from marshmallow import Schema, fields
 
 
+# load_only for deserialization only (incoming request)
+# dump_only for serialization only (outgoing response)
+
 # To avoid infinite nesting
 class PlainItemSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -51,3 +54,9 @@ class TagAndItemSchema(Schema):
     message = fields.Str()
     item = fields.Nested(ItemSchema)
     tag = fields.Nested(TagSchema)
+
+
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    username = fields.Str(required=True)
+    password = fields.Str(required=True, load_only=True)
