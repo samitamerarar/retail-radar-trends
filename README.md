@@ -2,9 +2,32 @@
 
 ## Development
 
+run App
+
 ```bash
 flask --app app --debug run
 ```
+
+Interact with Alembic using flask-migrate
+
+```bash
+flask db init
+```
+
+delete data.db then run:
+
+```bash
+flask db migrate
+```
+
+Apply migration to go from the current to the latest migration version:
+
+```bash
+flask db upgrade
+```
+
+> [!WARNING]  
+> **If adding column to existing model**: Check for upgrade and downgrade scripts in migrations, modify accordingly with custom queries to modify existing rows. e.g. `op.execute("UPADTE object SET new_column = False")`
 
 ### Virtual Environment
 

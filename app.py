@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, jsonify
 from flask_smorest import Api
+from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
 
@@ -26,10 +27,11 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv(
-        "DATABASE_URL", "sqlite:///data.db")  # sqlite:///data.db create db file locally
+        "DATABASE_URL", "sqlite:///data.db")  # sqlite:///data.db create data.db file locally
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
+    migrate = Migrate(app, db)
     api = Api(app)
 
     # JWT Authentication
@@ -61,8 +63,9 @@ def create_app(db_url=None):
         return jsonify({"description": "The token is not fresh.", "error": "fresh_token_required", }), 401
 
     # Create DB tables
-    with app.app_context():
-        db.create_all()
+    # (not needed anymore since flask_migrate do it for us!)
+    # with app.app_context():
+    #     db.create_all()
 
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(ItemBlueprint)
