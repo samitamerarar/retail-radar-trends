@@ -7,6 +7,8 @@ import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLinks } from '@/components/NavLinks'
 
+import Dropdown from './DropDown'
+
 function MenuIcon(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -35,17 +37,32 @@ function ChevronUpIcon(props) {
 
 function MobileNavLink({ children, ...props }) {
   return (
-    <Popover.Button
-      as={Link}
-      className="block text-base leading-7 tracking-tight text-gray-700"
-      {...props}
-    >
-      {children}
-    </Popover.Button>
+    <>
+      {props.disabled ? (
+        <span
+          className="pointer-events-none block text-base leading-7 tracking-tight text-gray-400"
+          {...props}
+        >
+          {children}
+        </span>
+      ) : (
+        <Popover.Button
+          as={Link}
+          className="block text-base leading-7 tracking-tight text-gray-700"
+          {...props}
+        >
+          {children}
+        </Popover.Button>
+      )}
+    </>
   )
 }
 
-export function Header() {
+export function Header({ user, loading }) {
+  const links = [
+    { label: 'Account settings', href: '#' },
+    { label: 'Logout', href: '#' },
+  ]
   return (
     <header>
       <nav>
@@ -102,10 +119,33 @@ export function Header() {
                               TempPage
                             </MobileNavLink>
                           </div>
-                          <div className="mt-8 flex flex-col gap-4">
-                            <Button href="/login" variant="outline">
-                              Log in
-                            </Button>
+                          <div className="mt-8 flex flex-col gap-4 border-t border-gray-300 pt-4">
+                            {user ? (
+                              <>
+                                <MobileNavLink disabled={true}>
+                                  {user.username}
+                                </MobileNavLink>
+                                {links.map((link, index) => (
+                                  <MobileNavLink
+                                    key={index}
+                                    href={link.href}
+                                    className={
+                                      index === links.length - 1
+                                        ? 'text-red-700'
+                                        : 'text-gray-700'
+                                    }
+                                  >
+                                    {link.label}
+                                  </MobileNavLink>
+                                ))}
+                              </>
+                            ) : (
+                              !loading && (
+                                <Button href="/login" variant="outline">
+                                  Log in
+                                </Button>
+                              )
+                            )}
                           </div>
                         </Popover.Panel>
                       </>
@@ -114,9 +154,23 @@ export function Header() {
                 </>
               )}
             </Popover>
-            <Button href="/login" variant="outline" className="hidden lg:block">
-              Log in
-            </Button>
+            {user ? (
+              <Dropdown
+                className="hidden lg:block"
+                links={links}
+                username={user.username}
+              />
+            ) : (
+              !loading && (
+                <Button
+                  href="/login"
+                  variant="outline"
+                  className="hidden lg:block"
+                >
+                  Log in
+                </Button>
+              )
+            )}
           </div>
         </Container>
       </nav>

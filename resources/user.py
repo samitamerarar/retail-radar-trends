@@ -81,3 +81,12 @@ class TokenRefresh(MethodView):
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
         return {"access_token": new_token}, 200
+
+
+@blp.route("/me")
+class UserInfo(MethodView):
+    @jwt_required()
+    def get(self):
+        current_user_id = get_jwt_identity()
+        user = UserModel.query.get_or_404(current_user_id)
+        return {"username": user.username}, 200
