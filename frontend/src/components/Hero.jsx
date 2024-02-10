@@ -336,8 +336,8 @@ export function Hero() {
               Some placeholder for text.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
-              <Button href="/login">
-                <span>Log in</span>
+              <Button href="/">
+                <span>Go to that page</span>
               </Button>
             </div>
           </div>

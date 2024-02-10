@@ -1,3 +1,9 @@
+import React, { useState, useContext, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
+import AuthContext from '@/context/AuthContext'
+import { toast } from 'react-toastify'
+
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -6,6 +12,29 @@ import { Button } from '@/components/Button'
 import { TextField } from '@/components/Fields'
 
 export default function Register() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const router = useRouter()
+
+  const { loading, error, isAuthenticated, register, clearErrors } =
+    useContext(AuthContext)
+
+  useEffect(() => {
+    if (error && !loading) {
+      toast.error(error)
+      clearErrors()
+    }
+
+    if (isAuthenticated && !loading) {
+      router.push('/')
+    }
+  }, [loading, error, isAuthenticated])
+
+  const handleRegister = (e) => {
+    e.preventDefault()
+    register({ username: email, password })
+  }
   return (
     <>
       <Head>
@@ -23,7 +52,7 @@ export default function Register() {
           </>
         }
       >
-        <form>
+        <form onSubmit={handleRegister}>
           <div className="grid grid-cols-2 gap-6">
             <TextField
               label="First name"
@@ -31,7 +60,7 @@ export default function Register() {
               name="first_name"
               type="text"
               autoComplete="given-name"
-              required
+              disabled={true}
             />
             <TextField
               label="Last name"
@@ -39,14 +68,16 @@ export default function Register() {
               name="last_name"
               type="text"
               autoComplete="family-name"
-              required
+              disabled={true}
             />
             <TextField
               className="col-span-full"
               label="Email address"
               id="email"
               name="email"
-              type="email"
+              type="Your email is invalid"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               required
             />
@@ -56,7 +87,9 @@ export default function Register() {
               id="password"
               name="password"
               type="password"
-              autoComplete="new-password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

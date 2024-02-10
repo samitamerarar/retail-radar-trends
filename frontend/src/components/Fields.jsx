@@ -18,7 +18,13 @@ export function TextField({ id, label, type = 'text', className, ...props }) {
   return (
     <div className={className}>
       {label && <Label id={id}>{label}</Label>}
-      <input id={id} type={type} {...props} className={formClasses} />
+      <input
+        id={id}
+        type={type}
+        {...props}
+        className={`disabled:bg-gray-200 ${formClasses}`}
+        disabled={props.disabled}
+      />
     </div>
   )
 }

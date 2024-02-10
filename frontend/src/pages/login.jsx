@@ -11,20 +11,19 @@ import { AuthLayout } from '@/components/AuthLayout'
 import { Button } from '@/components/Button'
 import { TextField } from '@/components/Fields'
 
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const router = useRouter()
 
-  const { loading, error, isAuthenticated, login } = useContext(AuthContext)
+  const { loading, error, isAuthenticated, login, clearErrors } =
+    useContext(AuthContext)
 
   useEffect(() => {
     if (error && !loading) {
       toast.error(error)
+      clearErrors()
     }
 
     if (isAuthenticated && !loading) {
@@ -42,7 +41,6 @@ export default function Login() {
       <Head>
         <title>Sign In - App Name</title>
       </Head>
-      <ToastContainer />
       <AuthLayout
         title="Sign in to account"
         subtitle={
