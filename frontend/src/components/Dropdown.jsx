@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Dropdown({ className, links, username }) {
+export default function Dropdown({ className, links, username, handleLogout }) {
   return (
     <Menu as="div" className={`relative inline-block text-left ${className}`}>
       <div>
@@ -38,8 +38,7 @@ export default function Dropdown({ className, links, username }) {
                     href={link.href}
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm',
-                      index === links.length - 1 && 'text-red-700' // Apply red color to the last item (Logout)
+                      'block px-4 py-2 text-sm'
                     )}
                   >
                     {link.label}
@@ -47,6 +46,19 @@ export default function Dropdown({ className, links, username }) {
                 )}
               </Menu.Item>
             ))}
+            <Menu.Item onClick={handleLogout}>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-red-500' : 'text-red-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Logout
+                </a>
+              )}
+            </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>

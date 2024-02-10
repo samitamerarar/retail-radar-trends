@@ -58,11 +58,14 @@ function MobileNavLink({ children, ...props }) {
   )
 }
 
-export function Header({ user, loading }) {
-  const links = [
-    { label: 'Account settings', href: '#' },
-    { label: 'Logout', href: '#' },
-  ]
+export function Header({ user, loading, logout }) {
+  const links = [{ label: 'Account settings', href: '#' }]
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    logout()
+  }
+
   return (
     <header>
       <nav>
@@ -119,34 +122,35 @@ export function Header({ user, loading }) {
                               TempPage
                             </MobileNavLink>
                           </div>
-                          <div className="mt-8 flex flex-col gap-4 border-t border-gray-300 pt-4">
-                            {user ? (
-                              <>
-                                <MobileNavLink disabled={true}>
-                                  {user.username}
+                          {user ? (
+                            <div className="mt-8 flex flex-col gap-4 border-t border-gray-300 pt-4 ">
+                              <MobileNavLink disabled={true}>
+                                {user.username}
+                              </MobileNavLink>
+                              {links.map((link, index) => (
+                                <MobileNavLink key={index} href={link.href}>
+                                  {link.label}
                                 </MobileNavLink>
-                                {links.map((link, index) => (
-                                  <MobileNavLink
-                                    key={index}
-                                    href={link.href}
-                                    className={
-                                      index === links.length - 1
-                                        ? 'text-red-700'
-                                        : 'text-gray-700'
-                                    }
-                                  >
-                                    {link.label}
-                                  </MobileNavLink>
-                                ))}
-                              </>
-                            ) : (
-                              !loading && (
-                                <Button href="/login" variant="outline">
-                                  Log in
-                                </Button>
-                              )
-                            )}
-                          </div>
+                              ))}
+                              <MobileNavLink
+                                href={'#'}
+                                onClick={handleLogout}
+                                className="text-red-700"
+                              >
+                                Logout
+                              </MobileNavLink>
+                            </div>
+                          ) : (
+                            !loading && (
+                              <Button
+                                className="mt-8 w-full text-gray-700"
+                                href="/login"
+                                variant="outline"
+                              >
+                                Log in
+                              </Button>
+                            )
+                          )}
                         </Popover.Panel>
                       </>
                     )}
@@ -159,6 +163,7 @@ export function Header({ user, loading }) {
                 className="hidden lg:block"
                 links={links}
                 username={user.username}
+                handleLogout={handleLogout}
               />
             ) : (
               !loading && (

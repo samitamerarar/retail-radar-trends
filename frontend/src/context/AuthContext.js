@@ -64,9 +64,28 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // Logout user
+  const logout = async () => {
+    try {
+      const res = await axios.post('/api/auth/logout')
+      if (res.data.success) {
+        setIsAuthenticated(false)
+        setUser(null)
+      }
+    } catch (error) {
+      setLoading(false)
+      setIsAuthenticated(false)
+      setUser(null)
+      setError(
+        error.response &&
+          (error.response.data.message || error.response.data.status)
+      )
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ loading, user, error, isAuthenticated, login }}
+      value={{ loading, user, error, isAuthenticated, login, logout }}
     >
       {children}
     </AuthContext.Provider>

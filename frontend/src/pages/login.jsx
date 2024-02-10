@@ -32,7 +32,7 @@ export default function Login() {
     }
   }, [loading, error, isAuthenticated])
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault()
     login({ username: email, password })
   }
@@ -54,7 +54,7 @@ export default function Login() {
           </>
         }
       >
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="space-y-6">
             <TextField
               label="Email address"
