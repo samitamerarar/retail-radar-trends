@@ -6,6 +6,9 @@ const nextConfig = {
     newNextLinkBehavior: true,
     scrollRestoration: true,
   },
+  env: {
+    API_URL: 'http://localhost:5000',
+  },
 }
 
 module.exports = nextConfig
