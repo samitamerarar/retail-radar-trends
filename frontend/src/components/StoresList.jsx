@@ -30,6 +30,14 @@ export default function StoresList({ stores }) {
     }
   }
 
+  const handleDeleteStore = async (storeId) => {
+    try {
+      await axios.delete(`/api/delete-store/${storeId}`)
+    } catch (error) {
+      console.error('Error deleting store:', error)
+    }
+  }
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -63,9 +71,20 @@ export default function StoresList({ stores }) {
                     <ShopIcon color={'#06b6d4'} />
                   </div>
                 </a>
+                <button
+                  className="absolute top-2 right-2 rounded-full bg-red-500 py-1 px-2 font-bold text-white hover:bg-red-700"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDeleteStore(store.id)
+                  }}
+                >
+                  X
+                </button>
                 <div className="mt-4 flex justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">{store.name}</h3>
+                    <h3 className="text-sm font-bold text-cyan-600">
+                      {store.name}
+                    </h3>
                     <p className="mt-1 text-sm text-gray-500">
                       tags:{' '}
                       <div className="flex flex-wrap">

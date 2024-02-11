@@ -13,6 +13,14 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
     }
   }
 
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await axios.delete(`/api/delete-item/${itemId}`)
+    } catch (error) {
+      console.error('Error deleting item:', error)
+    }
+  }
+
   const items =
     storeItems &&
     storeItems.map((item, index) => {
@@ -68,7 +76,7 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
           {items &&
             items.map((item) => (
               <li key={item.name}>
-                <div className="flex items-center gap-x-6 rounded-lg border p-2 shadow-md">
+                <div className="relative flex items-center gap-x-6 rounded-lg border p-2 shadow-md">
                   <ShoppingBagIcon className="h-6 w-6" />
                   <div>
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
@@ -88,6 +96,15 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
                       ))}
                     </div>
                   </div>
+                  <button
+                    className="absolute top-2 right-2 rounded-full bg-red-500 py-1 px-2 font-bold text-white hover:bg-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation() // Prevent click event from propagating to the parent li
+                      handleDeleteItem(item.id)
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
               </li>
             ))}
