@@ -9,6 +9,9 @@ import { NavLinks } from '@/components/NavLinks'
 
 import Dropdown from './DropDown'
 
+import AuthContext from '@/context/AuthContext'
+import { useContext } from 'react'
+
 function MenuIcon(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
@@ -58,7 +61,8 @@ function MobileNavLink({ children, ...props }) {
   )
 }
 
-export function Header({ user, loading, logout }) {
+export function Header() {
+  const { loading, user, logout } = useContext(AuthContext)
   const links = [{ label: 'Account settings', href: '#' }]
 
   const handleLogout = (e) => {
@@ -118,9 +122,7 @@ export function Header({ user, loading, logout }) {
                           className="absolute inset-x-0 top-0 z-0 origin-top rounded-b-2xl bg-gray-50 px-6 pb-6 pt-32 shadow-2xl shadow-gray-900/20"
                         >
                           <div className="space-y-4">
-                            <MobileNavLink href="#TempPate">
-                              TempPage
-                            </MobileNavLink>
+                            <MobileNavLink href="/Stores">Stores</MobileNavLink>
                           </div>
                           {user ? (
                             <div className="mt-8 flex flex-col gap-4 border-t border-gray-300 pt-4 ">

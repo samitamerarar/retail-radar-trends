@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 export function NavLinks() {
   let [hoveredIndex, setHoveredIndex] = useState(null)
 
-  return [['TempPage', '#TempPage']].map(([label, href], index) => (
+  return [['Stores', '/stores']].map(([label, href], index) => (
     <Link
       key={label}
       href={href}
