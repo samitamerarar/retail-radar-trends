@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ShopIcon = ({ color }) => {
   return (
@@ -8,7 +8,6 @@ const ShopIcon = ({ color }) => {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke={color}
-      className="h-6 w-6"
     >
       <path
         strokeLinecap="round"
@@ -20,12 +19,40 @@ const ShopIcon = ({ color }) => {
 }
 
 export default function StoresList({ stores }) {
+  const [newStore, setNewStore] = useState('')
+
+  const handleCreateStore = async () => {
+    try {
+      await axios.post('/api/create-store', { name: newStore })
+      setNewStoreName('')
+    } catch (error) {
+      console.error('Error creating store:', error)
+    }
+  }
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-          My Stores
-        </h2>
+        <div className="flex flex-col items-center justify-between sm:flex-row">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-0">
+            My Stores
+          </h2>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Enter store name"
+              className="mr-4 rounded border-gray-300 py-2 px-3"
+              value={newStore}
+              onChange={(e) => setNewStore(e.target.value)}
+            />
+            <button
+              className="rounded bg-cyan-500 py-2 px-4 font-bold text-white hover:bg-cyan-700"
+              onClick={handleCreateStore}
+            >
+              Create Store
+            </button>
+          </div>
+        </div>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {stores &&
@@ -33,7 +60,7 @@ export default function StoresList({ stores }) {
               <div key={store.id} className="group relative">
                 <a href={`/stores/${store.id}`}>
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md border-2 shadow-md group-hover:opacity-75 lg:aspect-none lg:h-80">
-                    <ShopIcon color={'#0284c7'} />
+                    <ShopIcon color={'#06b6d4'} />
                   </div>
                 </a>
                 <div className="mt-4 flex justify-between">

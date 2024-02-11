@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 export default function ItemsList({ storeName, storeItems, storeTags }) {
+  const [newStore, setNewStore] = useState('')
+
+  const handleCreateStore = async () => {
+    try {
+      await axios.post('/api/create-store', { name: newStore })
+      setNewStoreName('')
+    } catch (error) {
+      console.error('Error creating store:', error)
+    }
+  }
+
   const items =
     storeItems &&
     storeItems.map((item, index) => {
@@ -13,13 +24,42 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
     })
 
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white">
+      <div className="mx-auto px-4 py-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="flex flex-col items-center justify-between sm:flex-row">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-0">
+            Store Items:
+          </h2>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Enter name"
+              className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
+              value={newStore}
+              onChange={(e) => setNewStore(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Enter price"
+              className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
+              value={newStore}
+              onChange={(e) => setNewStore(e.target.value)}
+            />
+            <button
+              className="rounded bg-cyan-500 py-2 px-4 font-bold text-white hover:bg-cyan-700"
+              onClick={handleCreateStore}
+            >
+              Add Item
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-4">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Store Items:
+            {storeName}
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">{storeName}</p>
+          <p className="mt-6 text-lg leading-8 text-gray-600"></p>
         </div>
         <ul
           role="list"
