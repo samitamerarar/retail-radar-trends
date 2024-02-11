@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Head from 'next/head'
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -15,10 +14,9 @@ export default function StoreDetails({ error, ...props }) {
 
   return (
     <>
-      <Head>
-        <title>Stores - App Name</title>
-      </Head>
       <ItemsList
+        accessToken={props.accessToken}
+        storeId={props.storeId}
         storeName={props.storeName}
         storeItems={props.storeItems}
         storeTags={props.storeTags}

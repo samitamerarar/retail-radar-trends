@@ -1,23 +1,66 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 
-export default function ItemsList({ storeName, storeItems, storeTags }) {
-  const [newStore, setNewStore] = useState('')
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
-  const handleCreateStore = async () => {
+export default function ItemsList({
+  storeId,
+  storeName,
+  storeItems,
+  storeTags,
+  accessToken,
+}) {
+  const [newItemName, setNewItemName] = useState('')
+  const [newItemPrice, setNewItemPrice] = useState('')
+
+  const router = useRouter()
+
+  const handleCreateItem = async () => {
     try {
-      await axios.post('/api/create-store', { name: newStore })
-      setNewStoreName('')
+      const response = await axios.post(
+        `${process.env.API_URL}/item`,
+        { store_id: storeId, name: newItemName, price: newItemPrice },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      toast.success('Item added!')
+      router.replace(router.asPath) // Reload the current page
     } catch (error) {
-      console.error('Error creating store:', error)
+      toast.error(
+        error.response &&
+          (error.response.data.description ||
+            error.response.data.error ||
+            error.response.data.message ||
+            error.response.data.status)
+      )
     }
   }
 
   const handleDeleteItem = async (itemId) => {
     try {
-      await axios.delete(`/api/delete-item/${itemId}`)
+      const response = await axios.delete(
+        `${process.env.API_URL}/item/${itemId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      toast.warning('Item deleted!')
+      router.replace(router.asPath) // Reload the current page
     } catch (error) {
-      console.error('Error deleting item:', error)
+      toast.error(
+        error.response &&
+          (error.response.data.description ||
+            error.response.data.error ||
+            error.response.data.message ||
+            error.response.data.status)
+      )
     }
   }
 
@@ -25,6 +68,7 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
     storeItems &&
     storeItems.map((item, index) => {
       return {
+        id: item.id,
         name: item.name,
         price: item.price,
         tags: storeTags[index] || [],
@@ -43,19 +87,19 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
               type="text"
               placeholder="Enter name"
               className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
-              value={newStore}
-              onChange={(e) => setNewStore(e.target.value)}
+              value={newItemName}
+              onChange={(e) => setNewItemName(e.target.value)}
             />
             <input
-              type="text"
+              type="number"
               placeholder="Enter price"
               className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
-              value={newStore}
-              onChange={(e) => setNewStore(e.target.value)}
+              value={newItemPrice}
+              onChange={(e) => setNewItemPrice(e.target.value)}
             />
             <button
               className="rounded bg-cyan-500 py-2 px-4 font-bold text-white hover:bg-cyan-700"
-              onClick={handleCreateStore}
+              onClick={handleCreateItem}
             >
               Add Item
             </button>

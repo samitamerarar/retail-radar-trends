@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Head from 'next/head'
 
 import axios from 'axios'
@@ -29,7 +29,7 @@ export default function Stores({ error, ...props }) {
       <Head>
         <title>Stores - App Name</title>
       </Head>
-      <StoresList stores={props.stores} />
+      <StoresList stores={props.stores} accessToken={props.accessToken} />
     </>
   )
 }
@@ -49,6 +49,7 @@ export async function getServerSideProps({ req, params }) {
     return {
       props: {
         stores,
+        accessToken,
       },
     }
   } catch (error) {
