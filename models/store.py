@@ -10,5 +10,5 @@ class StoreModel(db.Model):
 
     # One to many mapping
     # dynamic: dont prefetch from DB; dont resolve to a list of ItemModel objects.
-    items = db.relationship("ItemModel", back_populates="store", lazy="dynamic")
-    tags = db.relationship("TagModel", back_populates="store", lazy="dynamic")
+    items = db.relationship("ItemModel", back_populates="store", lazy="dynamic", passive_deletes=True)
+    tags = db.relationship("TagModel", back_populates="store", lazy="dynamic", passive_deletes=True)

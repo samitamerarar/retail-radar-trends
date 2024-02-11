@@ -55,12 +55,21 @@ class ItemList(MethodView):
     @blp.arguments(ItemSchema)
     @blp.response(201, ItemSchema)
     def post(self, item_data):
-        item = ItemModel(**item_data)
+        # Validate price length
+        price = str(item_data.get('price'))
+        integer_part, decimal_part = price.split('.') if '.' in price else (price, '')
+        if not (integer_part.isdigit() and 1 <= len(integer_part) <= 10 and len(decimal_part) <= 2):
+            abort(400, message="Price must be a number with up to 10 digits before the decimal point and up to 2 digits after.")
 
+        # Validate store name length
+        if len(item_data.get('name', '')) < 3 or len(item_data.get('name', '')) > 15:
+            abort(400, message="Item name must be between 3 and 15 characters long.")
+
+        item = ItemModel(**item_data)
         try:
             db.session.add(item)
             db.session.commit()
         except SQLAlchemyError:
-            abort(500, message="An error occurred while inserting the item.")
+            abort(500, message="An error occurred while inserting the item. Can't have same item name!")
 
         return item

@@ -43,6 +43,10 @@ class StoreList(MethodView):
     @blp.arguments(StoreSchema)
     @blp.response(201, StoreSchema)
     def post(self, store_data):
+        # Validate store name length
+        if len(store_data.get('name', '')) < 3 or len(store_data.get('name', '')) > 15:
+            abort(400, message="Store name must be between 3 and 15 characters long.")
+
         current_user_id = get_jwt_identity()
         store_data['user_id'] = current_user_id
         store = StoreModel(**store_data)
