@@ -6,6 +6,7 @@
 *.pyd
 
 # Exclude virtual environment directories
+.venv/
 venv/
 env/
 
