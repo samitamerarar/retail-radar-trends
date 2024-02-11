@@ -5,7 +5,7 @@ from flask_smorest import Api
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-
+import datetime
 
 from db import db
 from blocklist import BLOCKLIST
@@ -31,6 +31,8 @@ def create_app(db_url=None):
     app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv(
         "DATABASE_URL", "sqlite:///data.db")  # sqlite:///data.db create data.db file locally
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = datetime.timedelta(days=30)
 
     db.init_app(app)
     migrate = Migrate(app, db)

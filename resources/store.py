@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from db import db
 from models import StoreModel
@@ -17,12 +17,14 @@ class Store(MethodView):
     @blp.response(200, StoreSchema)
     @blp.response(200, StoreSchema)
     def get(self, store_id):
-        store = StoreModel.query.get_or_404(store_id)
+        current_user_id = get_jwt_identity()
+        store = StoreModel.query.filter_by(id=store_id, user_id=current_user_id).first_or_404()
         return store
 
     @jwt_required()
     def delete(self, store_id):
-        store = StoreModel.query.get_or_404(store_id)
+        current_user_id = get_jwt_identity()
+        store = StoreModel.query.filter_by(id=store_id, user_id=current_user_id).first_or_404()
         db.session.delete(store)
         db.session.commit()
         return {"message": "Store deleted"}, 200
@@ -34,12 +36,15 @@ class StoreList(MethodView):
     @jwt_required()
     @blp.response(200, StoreSchema(many=True))
     def get(self):
-        return StoreModel.query.all()
+        current_user_id = get_jwt_identity()
+        return StoreModel.query.filter_by(user_id=current_user_id).all()
 
     @jwt_required()
     @blp.arguments(StoreSchema)
     @blp.response(201, StoreSchema)
     def post(self, store_data):
+        current_user_id = get_jwt_identity()
+        store_data['user_id'] = current_user_id
         store = StoreModel(**store_data)
         try:
             db.session.add(store)
