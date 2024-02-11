@@ -54,7 +54,7 @@ export default function ItemsList({ storeName, storeItems, storeTags }) {
           </div>
         </div>
       </div>
-      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 pb-8 lg:px-8 xl:grid-cols-4">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {storeName}
