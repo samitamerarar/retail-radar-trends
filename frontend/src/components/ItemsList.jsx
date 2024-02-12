@@ -4,12 +4,14 @@ import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import ItemsTrendingChart from './ItemsTrendingChart'
 
 export default function ItemsList({
   storeId,
   storeName,
   storeItems,
   storeTags,
+  storePytrends,
   accessToken,
 }) {
   const [newItemName, setNewItemName] = useState('')
@@ -154,6 +156,7 @@ export default function ItemsList({
             ))}
         </ul>
       </div>
+      <ItemsTrendingChart data={storePytrends} />
     </div>
   )
 }

@@ -20,6 +20,7 @@ export default function StoreDetails({ error, ...props }) {
         storeName={props.storeName}
         storeItems={props.storeItems}
         storeTags={props.storeTags}
+        storePytrends={props.pytrends}
       />
     </>
   )
@@ -42,6 +43,9 @@ export async function getServerSideProps({ req, params }) {
     const storeName = response.data.name
     const storeItems = response.data.items
     const storeTags = response.data.tags
+    const pytrends = response.data.pytrends
+      ? JSON.parse(response.data.pytrends)
+      : JSON.parse('[]')
 
     return {
       props: {
@@ -49,6 +53,7 @@ export async function getServerSideProps({ req, params }) {
         storeName,
         storeItems,
         storeTags,
+        pytrends,
         accessToken,
       },
     }
