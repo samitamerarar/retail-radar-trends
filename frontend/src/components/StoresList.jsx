@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
+
+import AuthContext from '@/context/AuthContext'
+import { useContext } from 'react'
 
 const ShopIcon = ({ color }) => {
   return (
@@ -26,7 +29,12 @@ const ShopIcon = ({ color }) => {
 export default function StoresList({ stores, accessToken }) {
   const [newStore, setNewStore] = useState('')
 
+  const { isAuthenticated } = useContext(AuthContext)
   const router = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticated) router.push('/')
+  }, [isAuthenticated])
 
   const handleCreateStore = async () => {
     try {
@@ -44,6 +52,7 @@ export default function StoresList({ stores, accessToken }) {
     } catch (error) {
       toast.error(
         error.response &&
+          error.response.data &&
           (error.response.data.description ||
             error.response.data.error ||
             error.response.data.message ||
@@ -67,6 +76,7 @@ export default function StoresList({ stores, accessToken }) {
     } catch (error) {
       toast.error(
         error.response &&
+          error.response.data &&
           (error.response.data.description ||
             error.response.data.error ||
             error.response.data.message ||
@@ -147,6 +157,11 @@ export default function StoresList({ stores, accessToken }) {
                 </div>
               ))}
           </div>
+          {stores && stores.length == 0 && (
+            <p className="mt-12 text-center text-lg text-yellow-500">
+              No Stores added!
+            </p>
+          )}
         </div>
       </div>
     </>

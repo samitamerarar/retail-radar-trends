@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import ItemsTrendingChart from './ItemsTrendingChart'
+
+import AuthContext from '@/context/AuthContext'
+import { useContext } from 'react'
 
 export default function ItemsList({
   storeId,
@@ -17,7 +20,12 @@ export default function ItemsList({
   const [newItemName, setNewItemName] = useState('')
   const [newItemPrice, setNewItemPrice] = useState('')
 
+  const { isAuthenticated } = useContext(AuthContext)
   const router = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticated) router.replace(router.asPath)
+  }, [isAuthenticated])
 
   const handleCreateItem = async () => {
     try {
@@ -35,6 +43,7 @@ export default function ItemsList({
     } catch (error) {
       toast.error(
         error.response &&
+          error.response.data &&
           (error.response.data.description ||
             error.response.data.error ||
             error.response.data.message ||
@@ -58,6 +67,7 @@ export default function ItemsList({
     } catch (error) {
       toast.error(
         error.response &&
+          error.response.data &&
           (error.response.data.description ||
             error.response.data.error ||
             error.response.data.message ||
@@ -156,6 +166,11 @@ export default function ItemsList({
             ))}
         </ul>
       </div>
+      {items && items.length == 0 && (
+        <p className="mt-6 mb-12 text-center text-lg text-yellow-500">
+          No Items added!
+        </p>
+      )}
       <ItemsTrendingChart data={storePytrends} />
     </div>
   )

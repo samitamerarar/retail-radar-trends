@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
 
   const router = useRouter()
 
@@ -31,12 +32,14 @@ export const AuthProvider = ({ children }) => {
 
       if (res.data.message) {
         setLoading(false)
+        setSuccess('Registered successfully, please Login!')
         router.push('/login')
       }
     } catch (error) {
       setLoading(false)
       setError(
         error.response &&
+          error.response.data &&
           (error.response.data.message || error.response.data.status)
       )
     }
@@ -55,6 +58,7 @@ export const AuthProvider = ({ children }) => {
         loadUser()
         setIsAuthenticated(true)
         setLoading(false)
+        setSuccess('Login successfully!')
         // router.push('/')
       }
     } catch (error) {
@@ -82,6 +86,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null)
       setError(
         error.response &&
+          error.response.data &&
           (error.response.data.message || error.response.data.status)
       )
     }
@@ -94,6 +99,7 @@ export const AuthProvider = ({ children }) => {
       if (res.data.success) {
         setIsAuthenticated(false)
         setUser(null)
+        setSuccess('Logout successfully!')
       }
     } catch (error) {
       setLoading(false)
@@ -101,14 +107,16 @@ export const AuthProvider = ({ children }) => {
       setUser(null)
       setError(
         error.response &&
+          error.response.data &&
           (error.response.data.message || error.response.data.status)
       )
     }
   }
 
   // Clear errors
-  const clearErrors = () => {
+  const clearErrorsAndMessages = () => {
     setError(null)
+    setSuccess(null)
   }
 
   return (
@@ -117,11 +125,12 @@ export const AuthProvider = ({ children }) => {
         loading,
         user,
         error,
+        success,
         isAuthenticated,
         login,
         logout,
         register,
-        clearErrors,
+        clearErrorsAndMessages,
       }}
     >
       {children}

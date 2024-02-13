@@ -1,4 +1,4 @@
-# App Name
+# Retail Radar Trends
 
 ## Getting started
 

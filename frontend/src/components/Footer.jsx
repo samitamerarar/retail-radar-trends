@@ -11,8 +11,8 @@ export function Footer() {
             <div className="flex items-center text-gray-900">
               <Logomark className="h-10 w-10 flex-none fill-cyan-500" />
               <div className="ml-4">
-                <p className="text-base font-semibold">App Name</p>
-                <p className="mt-1 text-sm">Text holder for app feature.</p>
+                <p className="text-base font-semibold">Retail Radar Trends</p>
+                <p className="mt-1 text-sm">Step into the future of retail.</p>
               </div>
             </div>
             <nav className="mt-11 flex gap-8">

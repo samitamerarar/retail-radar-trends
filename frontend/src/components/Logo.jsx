@@ -1,21 +1,23 @@
 export function Logomark(props) {
   return (
-    <svg viewBox="0 0 40 40" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M20 40C8.954 40 0 31.046 0 20S8.954 0 20 0s20 8.954 20 20-8.954 20-20 20ZM4 20c0 7.264 5.163 13.321 12.02 14.704C17.642 35.03 19 33.657 19 32V8c0-1.657-1.357-3.031-2.98-2.704C9.162 6.68 4 12.736 4 20Z"
-      />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="h-6 w-6"
+      {...props}
+    >
+      <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
     </svg>
   )
 }
 
 export function Logo(props) {
   return (
-    <svg viewBox="0 0 106 40" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 207 40" aria-hidden="true" {...props}>
       <Logomark width="40" height="40" className="fill-cyan-500" />
       <text x="50" y="25" className="fill-gray-900">
-        <tspan style={{ fontWeight: 'bold' }}>App</tspan>
+        <tspan style={{ fontWeight: 'bold' }}>Retail Radar Trends</tspan>
       </text>
     </svg>
   )

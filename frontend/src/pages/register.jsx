@@ -17,16 +17,24 @@ export default function Register() {
 
   const router = useRouter()
 
-  const { loading, error, isAuthenticated, register, clearErrors } =
-    useContext(AuthContext)
+  const {
+    loading,
+    error,
+    success,
+    isAuthenticated,
+    register,
+    clearErrorsAndMessages,
+  } = useContext(AuthContext)
 
   useEffect(() => {
     if (error && !loading) {
       toast.error(error)
-      clearErrors()
+      clearErrorsAndMessages()
     }
 
     if (isAuthenticated && !loading) {
+      toast.success(success)
+      clearErrorsAndMessages()
       router.push('/')
     }
   }, [loading, error, isAuthenticated])

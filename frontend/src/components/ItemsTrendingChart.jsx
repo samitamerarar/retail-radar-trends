@@ -14,7 +14,9 @@ import {
 const ItemsTrendingChart = ({ data }) => {
   // Extract the keys (line names) from the first data object
   const lineKeys =
-    data.length > 0 ? Object.keys(data[0]).filter((key) => key !== 'date') : []
+    data && data.length > 0
+      ? Object.keys(data[0]).filter((key) => key !== 'date')
+      : []
 
   const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF']
 
@@ -25,7 +27,7 @@ const ItemsTrendingChart = ({ data }) => {
   }
 
   const containError = () => {
-    return data.hasOwnProperty('error')
+    return data && data.hasOwnProperty('error')
   }
 
   return (

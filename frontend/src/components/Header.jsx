@@ -1,4 +1,6 @@
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+
 import { Popover } from '@headlessui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -11,6 +13,7 @@ import Dropdown from './DropDown'
 
 import AuthContext from '@/context/AuthContext'
 import { useContext } from 'react'
+import { toast } from 'react-toastify'
 
 function MenuIcon(props) {
   return (
@@ -62,13 +65,29 @@ function MobileNavLink({ children, ...props }) {
 }
 
 export function Header() {
-  const { loading, user, logout } = useContext(AuthContext)
+  const {
+    loading,
+    user,
+    logout,
+    success,
+    error,
+    clearErrorsAndMessages,
+    isAuthenticated,
+  } = useContext(AuthContext)
   const links = [{ label: 'Account settings', href: '#' }]
 
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault()
     logout()
   }
+
+  useEffect(() => {
+    if (!isAuthenticated && success) {
+      toast.warning(success)
+    }
+
+    clearErrorsAndMessages()
+  }, [success, isAuthenticated])
 
   return (
     <header>
@@ -122,7 +141,11 @@ export function Header() {
                           className="absolute inset-x-0 top-0 z-0 origin-top rounded-b-2xl bg-gray-50 px-6 pb-6 pt-32 shadow-2xl shadow-gray-900/20"
                         >
                           <div className="space-y-4">
-                            <MobileNavLink href="/stores">Stores</MobileNavLink>
+                            {isAuthenticated && (
+                              <MobileNavLink href="/stores">
+                                Stores
+                              </MobileNavLink>
+                            )}
                           </div>
                           {user ? (
                             <div className="mt-8 flex flex-col gap-4 border-t border-gray-300 pt-4 ">

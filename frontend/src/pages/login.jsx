@@ -17,16 +17,24 @@ export default function Login() {
 
   const router = useRouter()
 
-  const { loading, error, isAuthenticated, login, clearErrors } =
-    useContext(AuthContext)
+  const {
+    loading,
+    error,
+    success,
+    isAuthenticated,
+    login,
+    clearErrorsAndMessages,
+  } = useContext(AuthContext)
 
   useEffect(() => {
     if (error && !loading) {
       toast.error(error)
-      clearErrors()
+      clearErrorsAndMessages()
     }
 
     if (isAuthenticated && !loading) {
+      toast.success(success)
+      clearErrorsAndMessages()
       router.push('/')
     }
   }, [loading, error, isAuthenticated])
