@@ -8,20 +8,47 @@ import { toast } from 'react-toastify'
 import AuthContext from '@/context/AuthContext'
 import { useContext } from 'react'
 
-const ShopIcon = ({ color }) => {
+const ShopIcon = () => {
   return (
     <svg
+      version="1"
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke={color}
+      viewBox="0 0 48 48"
+      enable-background="new 0 0 48 48"
     >
+      <rect x="5" y="19" fill="#CFD8DC" width="38" height="19" />
+      <rect x="5" y="38" fill="#B0BEC5" width="38" height="4" />
+      <rect x="27" y="24" fill="#455A64" width="12" height="18" />
+      <rect x="9" y="24" fill="#E3F2FD" width="14" height="11" />
+      <rect x="10" y="25" fill="#1E88E5" width="12" height="9" />
       <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"
+        fill="#90A4AE"
+        d="M36.5,33.5c-0.3,0-0.5,0.2-0.5,0.5v2c0,0.3,0.2,0.5,0.5,0.5S37,36.3,37,36v-2C37,33.7,36.8,33.5,36.5,33.5z"
       />
+      <g fill="#558B2F">
+        <circle cx="24" cy="19" r="3" />
+        <circle cx="36" cy="19" r="3" />
+        <circle cx="12" cy="19" r="3" />
+      </g>
+      <path
+        fill="#7CB342"
+        d="M40,6H8C6.9,6,6,6.9,6,8v3h36V8C42,6.9,41.1,6,40,6z"
+      />
+      <rect x="21" y="11" fill="#7CB342" width="6" height="8" />
+      <polygon fill="#7CB342" points="37,11 32,11 33,19 39,19" />
+      <polygon fill="#7CB342" points="11,11 16,11 15,19 9,19" />
+      <g fill="#FFA000">
+        <circle cx="30" cy="19" r="3" />
+        <path d="M45,19c0,1.7-1.3,3-3,3s-3-1.3-3-3s1.3-3,3-3L45,19z" />
+        <circle cx="18" cy="19" r="3" />
+        <path d="M3,19c0,1.7,1.3,3,3,3s3-1.3,3-3s-1.3-3-3-3L3,19z" />
+      </g>
+      <g fill="#FFC107">
+        <polygon points="32,11 27,11 27,19 33,19" />
+        <polygon points="42,11 37,11 39,19 45,19" />
+        <polygon points="16,11 21,11 21,19 15,19" />
+        <polygon points="6,11 11,11 9,19 3,19" />
+      </g>
     </svg>
   )
 }
@@ -118,8 +145,8 @@ export default function StoresList({ stores, accessToken }) {
               stores.map((store) => (
                 <div key={store.id} className="group relative">
                   <a href={`/stores/${store.id}`}>
-                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md border-2 shadow-md group-hover:opacity-75 lg:aspect-none lg:h-80">
-                      <ShopIcon color={'#06b6d4'} />
+                    <div className="lg:h-50 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md border-2 shadow-md group-hover:opacity-75 lg:aspect-none">
+                      <ShopIcon />
                     </div>
                   </a>
                   <button
