@@ -1,6 +1,6 @@
 FROM python:3.10
 
-# EXPOSE 5000 # gunicorn runs on port 80, but i've specified 95 in the .sh file
+# EXPOSE 5000 # gunicorn runs on port 80, but i've specified port 95 in .sh and docker-compose
 
 WORKDIR /app
 
