@@ -7,6 +7,8 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 import datetime
 
+from dotenv import load_dotenv
+
 from db import db
 from blocklist import BLOCKLIST
 import models  # calls __init__
@@ -19,8 +21,9 @@ from resources.tag import blp as TagBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
-    CORS(app)
+    load_dotenv()
 
+    CORS(app)
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "Retail Radar Trends REST API"
     app.config["API_VERSION"] = "v1"
