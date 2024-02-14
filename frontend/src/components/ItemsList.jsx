@@ -4,7 +4,7 @@ import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import ItemsTrendingChart from './ItemsTrendingChart'
+import { ItemsTrendingChart } from '@components/ItemsTrendingChart'
 
 import AuthContext from '@/context/AuthContext'
 import { useContext } from 'react'

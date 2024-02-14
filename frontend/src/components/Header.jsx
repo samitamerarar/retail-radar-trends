@@ -8,8 +8,7 @@ import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLinks } from '@/components/NavLinks'
-
-import Dropdown from './DropDown'
+import { Dropdown } from '@/components/Dropdown'
 
 import AuthContext from '@/context/AuthContext'
 import { useContext } from 'react'
