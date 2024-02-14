@@ -13,7 +13,7 @@ services:
     environment:
       - FLASK_APP=app.py
     command: >
-      sh -c "flask db upgrade; gunicorn --bind 0.0.0.0:95 "app:create_app()"
+      sh -c "flask db upgrade && gunicorn --bind 0.0.0.0:95 'app:create_app()'"
 
 networks:
   nginxproxymanager_default:
