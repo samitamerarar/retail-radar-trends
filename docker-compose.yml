@@ -1,13 +1,20 @@
-version: "3"
+version: "3.9"
 services:
   web:
     build:
       context: .
     ports:
-      - "95:95"
+      - 95:95
+    container_name: retail-radar-trends-api
+    networks:
+      - nginxproxymanager_default
     volumes:
       - .:/app
     environment:
       - FLASK_APP=app.py
     command: >
       sh -c "flask db upgrade; gunicorn --bind 0.0.0.0:95 "app:create_app()"
+
+networks:
+  nginxproxymanager_default:
+    external: true
