@@ -4,8 +4,8 @@ services:
     build:
       context: .
     ports:
-      - 95:95
-    container_name: retail-radar-trends-api
+      - 5001:95
+    container_name: retailradartrends-api
     networks:
       - nginxproxymanager_default
     volumes:
