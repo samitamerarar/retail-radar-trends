@@ -11,7 +11,7 @@ import {
 } from 'recharts'
 
 // Define your component
-const ItemsTrendingChart = ({ data }) => {
+export default function ItemsTrendingChart({ data }) {
   // Extract the keys (line names) from the first data object
   const lineKeys =
     data && data.length > 0
@@ -61,5 +61,3 @@ const ItemsTrendingChart = ({ data }) => {
     </>
   )
 }
-
-export default ItemsTrendingChart
