@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Dropdown({ className, links, username, handleLogout }) {
+export function Dropdown({ className, links, username, handleLogout }) {
   return (
     <Menu as="div" className={`relative inline-block text-left ${className}`}>
       <div>
