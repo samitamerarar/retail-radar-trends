@@ -97,15 +97,15 @@ export default function ItemsList({
           <div className="flex">
             <input
               type="text"
-              placeholder="Enter name"
-              className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
+              placeholder="My Item"
+              className="mr-4 w-24 rounded border-gray-300 py-2 px-3 md:w-40"
               value={newItemName}
               onChange={(e) => setNewItemName(e.target.value)}
             />
             <input
               type="number"
-              placeholder="Enter price"
-              className="mr-4 w-40 rounded border-gray-300 py-2 px-3"
+              placeholder="$0.00"
+              className="mr-4 w-24 rounded border-gray-300 py-2 px-3 md:w-40"
               value={newItemPrice}
               onChange={(e) => setNewItemPrice(e.target.value)}
             />
