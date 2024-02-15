@@ -1,5 +1,11 @@
 # Retail Radar Trends
 
+## Documentation
+
+https://retailradartrends-api.samiarar.com/swagger-ui
+
+http://localhost:5000/swagger-ui
+
 ## Development
 
 run App
@@ -46,20 +52,14 @@ docker run -p 5000:5000 retail-radar-trends
 docker-compose up --build
 ```
 
-## Documentation
+## Database
 
-http://localhost:5000/swagger-ui
-
-https://retailradartrends-api.samiarar.com/swagger-ui
-
-### Database
-
-#### .env
+### .env
 
 URL must start with `postgresql` not `postgres`:
 
 - DATABASE_URL=postgresql://
 
-#### Drop Tables
+### Drop Tables
 
 > don't forget to drop this one: `DROP TABLE alembic_version`
