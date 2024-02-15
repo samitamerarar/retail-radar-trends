@@ -6,7 +6,7 @@ https://retailradartrends-api.samiarar.com/swagger-ui
 
 http://localhost:5000/swagger-ui
 
-## Prod
+## Production
 
 ### Frontend
 
