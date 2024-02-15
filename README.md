@@ -6,6 +6,22 @@ https://retailradartrends-api.samiarar.com/swagger-ui
 
 http://localhost:5000/swagger-ui
 
+## Prod
+
+### Frontend
+
+(Deployed on Vercel)[https://retail-radar-trends.vercel.app/]
+
+### Backend
+
+Deployed on a VPS with nginx
+
+#### Deploy a PROD instance
+
+```bash
+docker-compose up --build
+```
+
 ## Development
 
 run App
@@ -49,7 +65,7 @@ docker run -p 5000:5000 retail-radar-trends
 ### Hot reload
 
 ```bash
-docker-compose up --build
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
 ## Database
