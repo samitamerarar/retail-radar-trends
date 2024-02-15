@@ -50,6 +50,8 @@ docker-compose up --build
 
 http://localhost:5000/swagger-ui
 
+https://retailradartrends-api.samiarar.com/swagger-ui
+
 ### Database
 
 #### .env
