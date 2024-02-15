@@ -10,7 +10,7 @@ http://localhost:5000/swagger-ui
 
 ### Frontend
 
-(Deployed on Vercel)[https://retail-radar-trends.vercel.app/]
+[Deployed on Vercel](https://retail-radar-trends.vercel.app/)
 
 ### Backend
 
