@@ -2,6 +2,7 @@ import '@/styles/tailwind.css'
 import 'focus-visible'
 
 import { useEffect, useRef } from 'react'
+import Script from 'next/script'
 import { AuthProvider } from '@/context/AuthContext'
 
 import { ToastContainer } from 'react-toastify'
@@ -24,6 +25,22 @@ const App = ({ Component, pageProps, router }) => {
     <AuthProvider>
       <ToastContainer />
       <Layout>
+        {/* google analytics -- Start */}
+        <Script
+          strategy="afterInteractive" // load after page renders
+          src="https://www.googletagmanager.com/gtag/js?id=G-LLCPFRPC65"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-LLCPFRPC65');
+            `}
+        </Script>
+        {/* google analytics -- End */}
+
         <Component previousPathname={previousPathname} {...pageProps} />
       </Layout>
     </AuthProvider>
