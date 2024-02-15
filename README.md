@@ -1,5 +1,27 @@
 # Retail Radar Trends
 
+## Documentation
+
+https://retailradartrends-api.samiarar.com/swagger-ui
+
+http://localhost:5000/swagger-ui
+
+## Production
+
+### Frontend
+
+[Deployed on Vercel](https://retail-radar-trends.vercel.app/)
+
+### Backend
+
+Deployed on a VPS with nginx
+
+#### Deploy a PROD instance
+
+```bash
+docker-compose up --build
+```
+
 ## Development
 
 run App
@@ -43,23 +65,17 @@ docker run -p 5000:5000 retail-radar-trends
 ### Hot reload
 
 ```bash
-docker-compose up --build
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
-## Documentation
+## Database
 
-http://localhost:5000/swagger-ui
-
-https://retailradartrends-api.samiarar.com/swagger-ui
-
-### Database
-
-#### .env
+### .env
 
 URL must start with `postgresql` not `postgres`:
 
 - DATABASE_URL=postgresql://
 
-#### Drop Tables
+### Drop Tables
 
 > don't forget to drop this one: `DROP TABLE alembic_version`
