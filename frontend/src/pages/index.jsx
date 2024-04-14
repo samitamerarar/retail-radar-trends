@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>App Name</title>
+        <title>Retail Redar Trends</title>
         <meta name="description" content="" />
       </Head>
       <main>

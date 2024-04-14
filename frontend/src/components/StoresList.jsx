@@ -115,7 +115,7 @@ export default function StoresList({ stores, accessToken }) {
   return (
     <>
       <Head>
-        <title>Stores - App Name</title>
+        <title>Stores - Retail Radar Trends</title>
       </Head>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">

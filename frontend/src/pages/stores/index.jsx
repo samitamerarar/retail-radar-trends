@@ -27,7 +27,7 @@ export default function Stores({ error, ...props }) {
   return (
     <>
       <Head>
-        <title>Stores - App Name</title>
+        <title>Stores - Retail Radar Trends</title>
       </Head>
       <StoresList stores={props.stores} accessToken={props.accessToken} />
     </>

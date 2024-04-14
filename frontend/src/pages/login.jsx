@@ -47,7 +47,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Sign In - App Name</title>
+        <title>Sign In - Retail Radar Trends</title>
       </Head>
       <AuthLayout
         title="Sign in to account"

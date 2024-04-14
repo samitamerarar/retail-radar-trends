@@ -46,7 +46,7 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign Up - App Name</title>
+        <title>Sign Up - Retail Radar Trends</title>
       </Head>
       <AuthLayout
         title="Sign up for an account"
