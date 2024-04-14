@@ -34,7 +34,8 @@ export default function ItemsTrendingChart({ data }) {
     <>
       {containError() && (
         <h2 className="text-center text-sm font-semibold leading-6 text-red-500">
-          Error Fetching from the API
+          Unable to reach the server due to an error while communicating with
+          the API. Please try again later.
         </h2>
       )}
       <ResponsiveContainer width="97%" height={400}>
