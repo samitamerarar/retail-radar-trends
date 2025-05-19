@@ -7,7 +7,7 @@ services:
       - 5001:95
     container_name: retailradartrends-api
     networks:
-      - nginxproxymanager_default
+      - nginx-proxy-manager_default
     volumes:
       - .:/app
     environment:
@@ -16,5 +16,5 @@ services:
       sh -c "flask db upgrade && gunicorn --bind 0.0.0.0:95 'app:create_app()'"
 
 networks:
-  nginxproxymanager_default:
+  nginx-proxy-manager_default:
     external: true
