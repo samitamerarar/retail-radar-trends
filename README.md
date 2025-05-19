@@ -19,7 +19,7 @@ Deployed on a VPS with nginx
 #### Deploy a PROD instance
 
 ```bash
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 ## Development
